@@ -1,0 +1,234 @@
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, Sparkles, CalendarHeart, FileHeart, BadgeCheck, ArrowRight, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function StillLoveMeWebsite() {
+  const [page, setPage] = useState(0);
+  const [answer, setAnswer] = useState(null);
+  const [noPos, setNoPos] = useState({ x: 0, y: 0 });
+
+  const pages = ["The Case", "Evidence", "Final Question"];
+
+  const moveNoButton = () => {
+    const x = Math.floor(Math.random() * 280) - 140;
+    const y = Math.floor(Math.random() * 180) - 90;
+    setNoPos({ x, y });
+  };
+
+  const nextPage = () => setPage((p) => Math.min(p + 1, 2));
+  const prevPage = () => setPage((p) => Math.max(p - 1, 0));
+
+  return (
+    <div className="min-h-screen w-full bg-gradient-to-br from-rose-100 via-pink-50 to-red-100 flex items-center justify-center p-4 overflow-hidden relative">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(22)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-pink-300/70"
+            initial={{ y: "110vh", opacity: 0 }}
+            animate={{ y: "-10vh", opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 7 + Math.random() * 6, repeat: Infinity, delay: Math.random() * 6 }}
+            style={{ left: `${Math.random() * 100}%` }}
+          >
+            <Heart fill="currentColor" size={16 + Math.random() * 24} />
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="w-full max-w-2xl relative z-10">
+        <div className="flex justify-center gap-2 mb-5">
+          {pages.map((label, index) => (
+            <div
+              key={label}
+              className={`h-2 rounded-full transition-all ${index === page ? "w-12 bg-rose-500" : "w-5 bg-rose-200"}`}
+            />
+          ))}
+        </div>
+
+        <Card className="rounded-3xl shadow-2xl border-white/70 bg-white/85 backdrop-blur-md overflow-hidden">
+          <CardContent className="p-7 sm:p-10 text-center min-h-[560px] flex flex-col justify-between">
+            <AnimatePresence mode="wait">
+              {page === 0 && (
+                <motion.div
+                  key="page1"
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <div className="mx-auto mb-5 h-16 w-16 rounded-full bg-rose-100 flex items-center justify-center">
+                    <CalendarHeart className="text-rose-500" size={34} />
+                  </div>
+
+                  <p className="text-sm uppercase tracking-[0.25em] text-rose-400 font-semibold mb-3">
+                    Official Wife Audit
+                  </p>
+
+                  <h1 className="text-4xl sm:text-5xl font-bold text-rose-600 mb-5">
+                    Dear Hiba ❤️
+                  </h1>
+
+                  <div className="bg-rose-50 border border-rose-100 rounded-3xl p-6 mb-6">
+                    <p className="text-xl sm:text-2xl font-semibold text-gray-800 leading-relaxed">
+                      On 24 April 2026, you legally, emotionally, and dangerously agreed to tolerate me forever.
+                    </p>
+                  </div>
+
+                  <p className="text-lg text-gray-600 leading-relaxed">
+                    Today, your husband has launched a highly serious investigation to confirm one very important matter:
+                  </p>
+
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-800 mt-5">
+                    Do you still love him, or was it a limited-time offer?
+                  </p>
+                </motion.div>
+              )}
+
+              {page === 1 && (
+                <motion.div
+                  key="page2"
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <div className="mx-auto mb-5 h-16 w-16 rounded-full bg-pink-100 flex items-center justify-center">
+                    <FileHeart className="text-pink-500" size={34} />
+                  </div>
+
+                  <p className="text-sm uppercase tracking-[0.25em] text-pink-400 font-semibold mb-3">
+                    Evidence Presented
+                  </p>
+
+                  <h2 className="text-3xl sm:text-4xl font-bold text-rose-600 mb-6">
+                    Reasons you should still love me
+                  </h2>
+
+                  <div className="grid gap-4 text-left">
+                    {[
+                      "I am officially your husband, so returning me is no longer possible.",
+                      "I annoy you only because I love you professionally.",
+                      "I still look at you like I won a prize I did not deserve.",
+                      "I promise to keep asking stupid questions, but only to make you smile.",
+                      "You are Hiba, which already means my argument is weak and you will win anyway."
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="rounded-2xl bg-white border border-rose-100 shadow-sm p-4 flex gap-3 items-start"
+                      >
+                        <BadgeCheck className="text-rose-500 mt-1 shrink-0" size={22} />
+                        <p className="text-gray-700 text-base sm:text-lg">{item}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {page === 2 && (
+                <motion.div
+                  key="page3"
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.35 }}
+                  className="flex flex-col items-center"
+                >
+                  {!answer ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: [0, -8, 8, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="mx-auto mb-5 h-16 w-16 rounded-full bg-rose-100 flex items-center justify-center"
+                      >
+                        <Sparkles className="text-rose-500" size={34} />
+                      </motion.div>
+
+                      <p className="text-sm uppercase tracking-[0.25em] text-rose-400 font-semibold mb-3">
+                        Final Question
+                      </p>
+
+                      <h2 className="text-4xl sm:text-5xl font-bold text-rose-600 mb-5">
+                        Hiba, do you still love me?
+                      </h2>
+
+                      <p className="text-lg text-gray-600 mb-8">
+                        Please answer honestly. The “No” button has already filed for leave.
+                      </p>
+
+                      <div className="flex items-center justify-center gap-4 min-h-[130px] w-full">
+                        <Button
+                          onClick={() => setAnswer("yes")}
+                          className="rounded-full px-8 py-6 text-lg bg-rose-500 hover:bg-rose-600 shadow-lg"
+                        >
+                          Yes, obviously 💕
+                        </Button>
+
+                        <motion.div animate={{ x: noPos.x, y: noPos.y }} transition={{ type: "spring", stiffness: 260 }}>
+                          <Button
+                            onMouseEnter={moveNoButton}
+                            onClick={moveNoButton}
+                            variant="outline"
+                            className="rounded-full px-8 py-6 text-lg border-rose-300 text-rose-500 bg-white hover:bg-rose-50"
+                          >
+                            No 😭
+                          </Button>
+                        </motion.div>
+                      </div>
+                    </>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.45 }}
+                    >
+                      <div className="mx-auto mb-5 h-20 w-20 rounded-full bg-rose-100 flex items-center justify-center">
+                        <Heart className="text-rose-500" fill="currentColor" size={42} />
+                      </div>
+
+                      <h2 className="text-4xl sm:text-5xl font-bold text-rose-600 mb-5">
+                        Case Closed 😍
+                      </h2>
+
+                      <div className="rounded-3xl bg-rose-50 border border-rose-100 p-6">
+                        <p className="text-xl sm:text-2xl font-semibold text-gray-800 leading-relaxed">
+                          Hiba still loves her husband. This statement is now officially recorded and cannot be denied later.
+                        </p>
+                        <p className="text-gray-500 mt-4">
+                          Screenshot recommended for future emotional blackmail.
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex justify-between items-center pt-8">
+              <Button
+                onClick={prevPage}
+                disabled={page === 0}
+                variant="outline"
+                className="rounded-full border-rose-200 text-rose-500 disabled:opacity-30"
+              >
+                <ArrowLeft size={18} className="mr-2" /> Back
+              </Button>
+
+              {page < 2 ? (
+                <Button onClick={nextPage} className="rounded-full bg-rose-500 hover:bg-rose-600">
+                  Next <ArrowRight size={18} className="ml-2" />
+                </Button>
+              ) : (
+                <span className="text-sm text-gray-400">Made with love by your husband</span>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
