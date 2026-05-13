@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Hiba ❤️</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffe4ec, #fff5f7, #ffd6e0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(244, 63, 94, 0.35);
+      animation: floatUp linear infinite;
+      font-size: 22px;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 18px;
+      height: 8px;
+      border-radius: 999px;
+      background: #fecdd3;
+      transition: 0.3s;
+    }
+
+    .dot.active {
+      width: 48px;
+      background: #f43f5e;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 30px;
+      box-shadow: 0 25px 60px rgba(244, 63, 94, 0.22);
+      padding: 36px;
+      min-height: 560px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.45s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .icon {
+      height: 70px;
+      width: 70px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #ffe4e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
+
+    .label {
+      color: #fb7185;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1, h2 {
+      color: #e11d48;
+      font-size: 44px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #555;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .highlight {
+      background: #fff1f2;
+      border: 1px solid #ffe4e6;
+      border-radius: 24px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .highlight strong {
+      display: block;
+      color: #333;
+      font-size: 25px;
+      line-height: 1.5;
+    }
+
+    .big-question {
+      color: #333;
+      font-size: 31px;
+      font-weight: 800;
+      margin-top: 20px;
+    }
+
+    .evidence-list {
+      display: grid;
+      gap: 14px;
+      text-align: left;
+      margin-top: 22px;
+    }
+
+    .evidence {
+      background: white;
+      border: 1px solid #ffe4e6;
+      border-radius: 18px;
+      padding: 15px 17px;
+      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.08);
+      color: #444;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      min-height: 55px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: 0.25s;
+    }
+
+    .primary {
+      background: #f43f5e;
+      color: white;
+      box-shadow: 0 10px 22px rgba(244, 63, 94, 0.28);
+    }
+
+    .primary:hover {
+      background: #e11d48;
+      transform: translateY(-2px);
+    }
+
+    .secondary {
+      background: white;
+      border: 1px solid #fecdd3;
+      color: #f43f5e;
+    }
+
+    .secondary:hover {
+      background: #fff1f2;
+    }
+
+    .answer-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      min-height: 140px;
+      margin-top: 25px;
+      position: relative;
+    }
+
+    #noBtn {
+      position: relative;
+    }
+
+    .footer-text {
+      color: #999;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 26px 20px;
+        min-height: 600px;
+      }
+
+      h1, h2 {
+        font-size: 34px;
+      }
+
+      .highlight strong, .big-question {
+        font-size: 23px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .buttons {
+        gap: 12px;
+      }
+
+      button {
+        padding: 12px 18px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <div class="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="card">
+      <div>
+        <section class="page active">
+          <div class="icon">❤️</div>
+          <div class="label">Official Wife Audit</div>
+          <h1>Dear Hiba</h1>
+
+          <div class="highlight">
+            <strong>On 24 April 2026, you legally, emotionally, and dangerously agreed to tolerate me forever.</strong>
+          </div>
+
+          <p>Today, your husband has launched a very serious investigation to confirm one important matter:</p>
+          <div class="big-question">Do you still love him, or was it a limited-time offer?</div>
+        </section>
+
+        <section class="page">
+          <div class="icon">📁</div>
+          <div class="label">Evidence Presented</div>
+          <h2>Reasons you should still love me</h2>
+
+          <div class="evidence-list">
+            <div class="evidence">✅ I am officially your husband, so returning me is no longer possible.</div>
+            <div class="evidence">✅ I annoy you only because I love you professionally.</div>
+            <div class="evidence">✅ I still look at you like I won a prize I did not deserve.</div>
+            <div class="evidence">✅ I promise to keep asking stupid questions, but only to make you smile.</div>
+            <div class="evidence">✅ You are Hiba, which already means my argument is weak and you will win anyway.</div>
+          </div>
+        </section>
+
+        <section class="page">
+          <div id="questionBox">
+            <div class="icon">✨</div>
+            <div class="label">Final Question</div>
+            <h2>Hiba, do you still love me?</h2>
+            <p>Please answer honestly. The “No” button has already filed for leave.</p>
+
+            <div class="answer-area">
+              <button class="primary" onclick="sayYes()">Yes, obviously 💕</button>
+              <button class="secondary" id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 😭</button>
+            </div>
+          </div>
+
+          <div id="yesBox" class="hidden">
+            <div class="icon">💖</div>
+            <h2>Case Closed 😍</h2>
+            <div class="highlight">
+              <strong>Hiba still loves her husband. This statement is now officially recorded and cannot be denied later.</strong>
+            </div>
+            <p>Screenshot recommended for future emotional blackmail.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="buttons">
+        <button class="secondary" onclick="prevPage()">← Back</button>
+        <p class="footer-text" id="footerText">Made with love by your husband</p>
+        <button class="primary" onclick="nextPage()" id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll(".page");
+    const dots = document.querySelectorAll(".dot");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showPage(index) {
+      pages.forEach((page, i) => {
+        page.classList.toggle("active", i === index);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+
+      nextBtn.style.visibility = index === pages.length - 1 ? "hidden" : "visible";
+    }
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+
+    function moveNo() {
+      const noBtn = document.getElementById("noBtn");
+      const x = Math.floor(Math.random() * 260) - 130;
+      const y = Math.floor(Math.random() * 170) - 85;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function sayYes() {
+      document.getElementById("questionBox").classList.add("hidden");
+      document.getElementById("yesBox").classList.remove("hidden");
+    }
+
+    function createHearts() {
+      const heartsContainer = document.getElementById("hearts");
+      for (let i = 0; i < 24; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = 7 + Math.random() * 6 + "s";
+        heart.style.animationDelay = Math.random() * 6 + "s";
+        heart.style.fontSize = 16 + Math.random() * 24 + "px";
+        heartsContainer.appendChild(heart);
+      }
+    }
+
+    createHearts();
+    showPage(currentPage);
+  </script>
+</body>
+</html>
